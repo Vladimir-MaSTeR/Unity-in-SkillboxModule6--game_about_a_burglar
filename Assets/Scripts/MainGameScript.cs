@@ -10,7 +10,9 @@ public class MainGameScript : MonoBehaviour {
     [SerializeField] private int _winningNumber;
 
     [SerializeField] private GameObject _finishPanel;
- //   [SerializeField] private int _thirdPin;
+    [SerializeField] private GameObject _canvasGame;
+    [SerializeField] private GameObject _finishCanvas;
+    [SerializeField] private Button _finishHistoryButton;
 
     //настройки отображения панелей
     [SerializeField] private Text _timerText;
@@ -45,12 +47,14 @@ public class MainGameScript : MonoBehaviour {
         } else {
             _finishPanel.SetActive(true);
             _finishPanelText.text = "Вы проиграли";
+            _finishHistoryButton.interactable = false;
         }
 
         if (_firstPinPars == _winningNumber && _secondPinPars == _winningNumber && _thirdPinPars == _winningNumber) {
             _finishPanel.SetActive(true);
             _timeLeft = _timerGame;
             _finishPanelText.text = "Вы выиграли";
+            _finishHistoryButton.interactable = true;
 
         } 
     }
@@ -59,6 +63,11 @@ public class MainGameScript : MonoBehaviour {
         _finishPanel.SetActive(false);
         _timeLeft = _timerGame;
         SetTexttoPin();
+    }
+
+    public void СontinuationHistory() {
+        _canvasGame.SetActive(false);
+        _finishCanvas.SetActive(true);
     }
 
 
@@ -81,7 +90,7 @@ public class MainGameScript : MonoBehaviour {
         TextDisplayInPin();
     }   
     
-    public void ClickMasterKeyButton() {
+    public void ClickWrenchButton() {
         ParserPinTextToInt();
 
         _secondPinPars -= 1;
@@ -91,7 +100,7 @@ public class MainGameScript : MonoBehaviour {
 
     }
 
-    public void ClickLegButton() {
+    public void ClickScrewdriveButton() {
         ParserPinTextToInt();
 
         _firstPinPars += 1;
